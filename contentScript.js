@@ -13,6 +13,8 @@ const createTimetableExport = () => {
   button.appendChild(text);
   timetableDiv.insertBefore(button, careerDiv.nextSibling);
 
+  // The code here was stolen from https://github.com/james2mid/timetable-vcs
+  // Will update the code if needed.
   button.addEventListener("click", () => {
     /*
      ** Created with <3 by James Middleton (hello@jamesmiddleton.me)
