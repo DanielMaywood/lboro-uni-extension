@@ -1,0 +1,12 @@
+{
+  "name": "Lboro Timetable",
+  "version": "1.0",
+  "description": "Create a timetable from lboro's website",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["https://lucas.lboro.ac.uk/its_apx/*"],
+      "js": ["third-party/jquery-3.5.1.min.js", "contentScript.js"]
+    }
+  ]
+}
