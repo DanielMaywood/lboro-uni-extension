@@ -118,7 +118,7 @@ const createTimetableExport = () => {
 
     const [semester, isInvalidSemester] = getSemester();
     if (isInvalidSemester) {
-      alert("You must set Period to be either Semester 1 or Semester2");
+      alert("You must set Period to be either Semester 1 or Semester 2");
       return;
     }
 
