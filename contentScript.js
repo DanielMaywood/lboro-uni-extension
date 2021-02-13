@@ -66,9 +66,7 @@ const createTimetableExport = () => {
 
       const lectureElems = timetableDay.reduce((acc, day) => {
         return acc
-          .concat(
-            Array.from(day.getElementsByClassName("new_row_tt_info_cell"))
-          )
+          .concat(Array.from(day.getElementsByClassName("new_row_tt_info_cell")))
           .concat(Array.from(day.getElementsByClassName("tt_info_cell")));
       }, []);
 
@@ -129,9 +127,7 @@ const createTimetableExport = () => {
 
     // console.log(timetableBody);
 
-    const { timetable, onDemand } = splitIntoOnDemandAndTimetable(
-      timetableBody
-    );
+    const { timetable, onDemand } = splitIntoOnDemandAndTimetable(timetableBody);
 
     console.log(timetableBody);
     console.log(onDemand);
