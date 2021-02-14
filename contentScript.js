@@ -58,11 +58,44 @@ const createTimetableExport = () => {
     };
 
     /**
+     * Parse `Weeks: Sem 1/2: 1,3-4,7,9-10` format.
+     * @param {string} weeks
+     */
+    const getWeeksFromLboroFormat = (weeks) => {
+      return weeks
+        .substr("Weeks: Sem 1:".length)
+        .split(",")
+        .map((week) => week.trim())
+        .reduce((acc, week) => {
+          if (week.includes(" - ")) {
+            const [start, end] = week.split(" - ").map((week) => parseInt(week));
+            return acc.concat(Array.from({ length: end - start + 1 }, (v, k) => start + k));
+          } else {
+            return acc.concat(parseInt(week));
+          }
+        }, []);
+    };
+
+    /**
+     * Get lecture from an element.
+     * @param {Element} elem
+     */
+    const getLectureFromElem = (elem) => {
+      const code = elem.getElementsByClassName("tt_module_id_row")[0].innerHTML;
+      const name = elem.getElementsByClassName("tt_module_name_row")[0].innerHTML;
+      const type = elem.getElementsByClassName("tt_modtype_row")[0].innerHTML;
+      const weeks = getWeeksFromLboroFormat(elem.getElementsByClassName("tt_weeks_row")[0].innerHTML);
+      const lecturer = elem.getElementsByClassName("tt_lect_row")[0].innerHTML;
+
+      return { code, name, type, weeks, lecturer };
+    };
+
+    /**
      * Get lectures from a timetable day element.
      * @param {Array<Element>} timetableDay
      */
     const getLecturesFromTimetableDay = (timetableDay) => {
-      const lectures = {};
+      const lectures = [];
 
       const lectureElems = timetableDay.reduce((acc, day) => {
         return acc
@@ -71,10 +104,10 @@ const createTimetableExport = () => {
       }, []);
 
       for (let i = 0; i < lectureElems.length; ++i) {
-        const elem = lectureElems[i];
-
-        console.log(elem);
+        lectures.push(getLectureFromElem(lectureElems[i]));
       }
+
+      return lectures;
     };
 
     /**
@@ -133,7 +166,7 @@ const createTimetableExport = () => {
     console.log(onDemand);
     console.log(timetable);
 
-    getLecturesFromTimetableDay(timetable["Monday"]);
+    console.log(getLecturesFromTimetableDay(timetable["Monday"]));
 
     console.log(getStartingDatesForSemester(semester));
   });
