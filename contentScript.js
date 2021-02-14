@@ -97,14 +97,42 @@ const createTimetableExport = () => {
     const getLecturesFromTimetableDay = (timetableDay) => {
       const lectures = [];
 
+      /**
+       * Get lectures from a day with start+duration added.
+       * @param {HTMLCollectionOf<Element>} day
+       */
+      const getLecturesWithTimeAndDuration = (day) => {
+        let lectures = [];
+        let minutes = 9 * (30 * 2); // 9 AM
+
+        for (let i = 0; i < day.length; ++i) {
+          const elem = day[i];
+          const duration = elem.getAttribute("colspan");
+
+          if (!duration) {
+            minutes += 30;
+          } else {
+            const length = 30 * parseInt(duration);
+            lectures.push([elem, minutes, length]);
+            minutes += length;
+          }
+        }
+
+        return lectures;
+      };
+
       const lectureElems = timetableDay.reduce((acc, day) => {
         return acc
-          .concat(Array.from(day.getElementsByClassName("new_row_tt_info_cell")))
-          .concat(Array.from(day.getElementsByClassName("tt_info_cell")));
+          .concat(getLecturesWithTimeAndDuration(day.getElementsByClassName("new_row_tt_info_cell")))
+          .concat(getLecturesWithTimeAndDuration(day.getElementsByClassName("tt_info_cell")));
       }, []);
 
       for (let i = 0; i < lectureElems.length; ++i) {
-        lectures.push(getLectureFromElem(lectureElems[i]));
+        lectures.push({
+          ...getLectureFromElem(lectureElems[i][0]),
+          startTime: lectureElems[i][1],
+          duration: lectureElems[i][2],
+        });
       }
 
       return lectures;
@@ -165,10 +193,11 @@ const createTimetableExport = () => {
     console.log(timetableBody);
     console.log(onDemand);
     console.log(timetable);
-
-    console.log(getLecturesFromTimetableDay(timetable["Monday"]));
-
     console.log(getStartingDatesForSemester(semester));
+
+    Object.keys(timetable).forEach((key) => {
+      console.log(getLecturesFromTimetableDay(timetable[key]));
+    });
   });
 };
 
