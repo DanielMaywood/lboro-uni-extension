@@ -1,4 +1,5 @@
 const fixNames = () => {
+  const prefferedPrefix = "Mr";
   const prefferedName = "Danielle Osborn Maywood";
 
   // Fix the learn page top right usertext that
@@ -44,7 +45,19 @@ const fixNames = () => {
     const course = split1[1];
     const part = split1[2];
 
-    element.innerHTML = `${resultsFor}, ${prefferedName};${course};${part}`;
+    element.innerHTML = `${resultsFor}, ${prefferedPrefix} ${prefferedName};${course};${part}`;
+  }
+
+  // If this is the bank details page
+  if (location.href.startsWith("https://lucas.lboro.ac.uk/pub-apx/")) {
+    const element = document //
+      .getElementById("main-content")
+      .getElementsByTagName("div")[1]
+      .getElementsByTagName("h3")[0];
+
+    const studentNo = element.innerHTML.split("(")[1];
+
+    element.innerHTML = `${prefferedPrefix} ${prefferedName} (${studentNo}`;
   }
 };
 

@@ -12,7 +12,8 @@
       "matches": [
         "https://learn.lboro.ac.uk/*",
         "https://lucas.lboro.ac.uk/its_apx/*",
-        "https://lucas.lboro.ac.uk/cc-apx/*"
+        "https://lucas.lboro.ac.uk/cc-apx/*",
+        "https://lucas.lboro.ac.uk/pub-apx/*"
       ],
       "js": ["fix-name.js"]
     }
