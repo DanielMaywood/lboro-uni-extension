@@ -7,6 +7,19 @@ const fixNames = () => {
     usertext.innerHTML = prefferedName;
   });
 
+  // If this is normal learn page.
+  if (location.href.startsWith("https://learn.lboro.ac.uk/my")) {
+    document
+      .getElementById("inst51055")
+      .getElementsByClassName("card-body")[0]
+      .getElementsByClassName("card-text")[0]
+      .getElementsByTagName("table")[0]
+      .getElementsByTagName("tbody")[0]
+      .getElementsByTagName("tr")[1]
+      .getElementsByTagName("td")[0]
+      .getElementsByTagName("strong")[0].innerHTML = prefferedName;
+  }
+
   // If this is the timetable page.
   if (location.href.startsWith("https://lucas.lboro.ac.uk/its_apx/")) {
     // Remove the name it is completely pointless.
