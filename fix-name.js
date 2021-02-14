@@ -21,6 +21,14 @@ const fixNames = () => {
       .getElementsByTagName("strong")[0].innerHTML = prefferedName;
   }
 
+  // If this is on the user edit page.
+  if (location.href.startsWith("https://learn.lboro.ac.uk/user/edit.php")) {
+    document
+      .getElementById("region-main")
+      .getElementsByTagName("div")[0]
+      .getElementsByTagName("h2")[0].innerHTML = prefferedName;
+  }
+
   // If this is the timetable page.
   if (location.href.startsWith("https://lucas.lboro.ac.uk/its_apx/")) {
     // Remove the name it is completely pointless.
