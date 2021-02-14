@@ -1,6 +1,6 @@
 const fixNames = () => {
-  const prefferedPrefix = "Mr";
-  const prefferedName = "Danielle Osborn Maywood";
+  const prefferedPrefix = "<Prefix>";
+  const prefferedName = "<InsertNameHere>";
 
   // Fix the learn page top right usertext that
   // is incorrect.
